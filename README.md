@@ -10,13 +10,59 @@ And some path tools like executing a custom function for each point on the path.
 1. Download the tlibrary.jsx
 2. Drag it into the footage area of after effects
 3. Use it in expression
-
 ```javascript
 /* Used in expression, just like #include */
 const tlib = footage("tlibrary.jsx").sourceData
 ```
 ***
-##### Function
+##### Prompt
++ The JavaScript engine is available in After Effects CC2019 and later
++ You can make sure that your project is using the JavaScript engine by going to File > Project Settings > Expressions and setting the Expressions Engine to JavaScript
++ If you only need to deal with complex numbers
+there is a separate complex.jsx file that can provide simple complex number calculations
+Here is how to use complex.jsx with write-on effect in solid layer to create a mandelbrot set:
+
+1. Download the complex.jsx
+2. Drag it into the footage area of after effects
+3. Create soild layer and add write-on effect
+4. Type in expression in "Brush Position" and "Color"
+5. Play for fun
+```javascript
+/* Run over in "Brush Position" attribute */
+const _timeSpeed = 4
+const _skip = 6
+const _maxiteration = 80
+const wid = thisComp.width
+const hei = thisComp.height
+const _time = timeToFrames(time * _timeSpeed)
+const x = (_time * _skip)%thisComp.width
+const y = parseInt((_time * _skip)/thisComp.width) * _skip
+p = [x, y]
+```
+
+```javascript
+/* Run over in "Color" attribute */
+const _timeSpeed = 4
+const _skip = 6
+const _maxiteration = 80
+const wid = thisComp.width
+const hei = thisComp.height
+const _time = timeToFrames(time * _timeSpeed)
+const x = (_time * _skip)%thisComp.width
+const y = parseInt((_time * _skip)/thisComp.width) * _skip
+const CMPLX = footage("complex.jsx").sourceData
+function mandelbrotSet(c){
+		let z = CMPLX.complex(0, 0)
+		for(let n=0; n<=_maxiteration; n++){
+			z = CMPLX.cadd(CMPLX.cmult(z, z), c)
+			let absz = CMPLX.cabs(z)
+			if(absz >= 2){return n}}return 0}
+domain = (_x, _y)=>{return [(_x/wid)*3-2, (_y/hei)*2-1]}
+_Cd = mandelbrotSet(CMPLX.complex(domain(x, y)))/_maxiteration
+_return = hslToRgb([Math.pow(_Cd, 0.6), 1, 0.5, 1])
+```
+***
+##### Functions
 ```javascript
 /* Information */
 		tlib.info
@@ -39,7 +85,21 @@ const tlib = footage("tlibrary.jsx").sourceData
 	// Multiply two complex numbers
 		tlib.cmult(complex, complex)
 		tlib.cmult(complex, float)
-		
+	// Return the real component of a complex number
+		tlib.creal(_complex)
+	
+	// Return the imaginary component of a complex number
+		tlib.cimag(_complex)
+	 
+	// Compute the complex conjugate of a complex number
+		tlib.conj(_complex)
+	 
+	// Compute the absolute value of a complex number
+		tlib.cabs(_complex)
+	 
+	// Compute the complex exponential of an imaginary scalar,
+	// i.e. Euler's formula: e^(i _theta) = cos(_theta) + i sin(_theta)
+		tlib.cexpimag(_theta)
 /* Matrix Tools */
 	// Returns the identity matrix for the given matrix type
 		tlib.ident()
