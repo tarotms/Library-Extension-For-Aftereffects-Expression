@@ -3,7 +3,7 @@
  */
 
 {
-info        : "TOOLLIBRARY 0.0.0",
+info        : "TOOLLIBRARY 1.0.0",
 version     : "1.0.0",
 
 // Private Function
@@ -59,6 +59,18 @@ version     : "1.0.0",
         }
     },
 
+    creal(_complex){
+        return _complex.real
+    },
+
+    cimag(_complex){
+        return _complex.imag
+    },
+
+    conj(_complex){
+        return this.__Complex(_complex.real, -_complex.imag)
+    },
+
     cVisualize(_complex){
         if(!this.__checkComplex(_complex)){
             this.__throwError("Not complex number")
@@ -105,6 +117,14 @@ version     : "1.0.0",
                             + _complex2.real * _complex1.imag
             return _return
         }
+    },
+
+    cabs(_complex){
+        return Math.sqrt(_complex.real * _complex.real + _complex.imag * _complex.imag)
+    },
+
+    cexpimag(_theta){
+        return this.__Complex(Math.cos(_theta), Math.cos(_theta))
     },
 
 // Matrix Tools
