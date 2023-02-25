@@ -21,6 +21,7 @@ const tlib = footage("tlibrary.jsx").sourceData
 + If you only need to deal with complex numbers
 there is a separate complex.jsx file that can provide simple complex number calculations
 Here is how to use complex.jsx with write-on effect in solid layer to create a mandelbrot set:
+
 ![image](https://github.com/tarotms/Library-Extension-For-Aftereffects-Expression/blob/main/images/mandelbrotset.png?raw=true)
 
 1. Download the complex.jsx
