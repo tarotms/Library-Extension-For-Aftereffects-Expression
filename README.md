@@ -100,6 +100,7 @@ _return = hslToRgb([Math.pow(_Cd, 0.6), 1, 0.5, 1])
 	// Compute the complex exponential of an imaginary scalar,
 	// i.e. Euler's formula: e^(i _theta) = cos(_theta) + i sin(_theta)
 		tlib.cexpimag(_theta)
+		
 /* Matrix Tools */
 	// Returns the identity matrix for the given matrix type
 		tlib.ident()
