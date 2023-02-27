@@ -124,7 +124,7 @@ version     : "1.0.0",
     },
 
     cexpimag(_theta){
-        return this.__Complex(Math.cos(_theta), Math.cos(_theta))
+        return this.__Complex(Math.cos(_theta), Math.sin(_theta))
     },
 
 // Matrix Tools
